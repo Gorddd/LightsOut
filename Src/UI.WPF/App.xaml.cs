@@ -24,4 +24,22 @@ public partial class App : Application
             services.AddSingleton<MainWindow>();
         }).Build();
     }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        host.Start();
+
+        MainWindow = host.Services.GetRequiredService<MainWindow>();
+        MainWindow.Show();
+
+        base.OnStartup(e);
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        host.StopAsync();
+        host.Dispose();
+
+        base.OnExit(e);
+    }
 }
