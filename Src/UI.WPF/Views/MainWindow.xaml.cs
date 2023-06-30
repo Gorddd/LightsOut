@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UI.WPF.UIServices;
 
 namespace UI.WPF.Views
 {
@@ -19,9 +20,28 @@ namespace UI.WPF.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public IMainWindowService MainWindowService { get; }
+
+        public MainWindow(IMainWindowService mainWindowService)
         {
             InitializeComponent();
+
+            MainWindowService = mainWindowService;
+
+            DataContext = this;
+
+            ConfigureOptions();
+        }
+
+        private void ConfigureOptions()
+        {
+            MainWindowService.AppearCommand.Appear = () =>
+            {
+                WindowState = WindowState.Normal;
+                Activate();
+            };
+            MainWindowService.AppearCommand.CanExecuteFunc = obj =>
+                WindowState == WindowState.Minimized;
         }
     }
 }
