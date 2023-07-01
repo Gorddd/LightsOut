@@ -11,10 +11,12 @@ namespace ViewModel.Commands;
 public class ExitCommand : ICommand
 {
     private readonly IExitView _view;
+    private readonly ICoverView _cover;
 
-    public ExitCommand(IExitView view)
+    public ExitCommand(IExitView view, ICoverView cover)
     {
         _view = view;
+        _cover = cover;
     }
 
     public event EventHandler? CanExecuteChanged;
@@ -26,6 +28,7 @@ public class ExitCommand : ICommand
 
     public void Execute(object? parameter)
     {
+        _cover.Exit();
         _view.Exit();
     }
 }

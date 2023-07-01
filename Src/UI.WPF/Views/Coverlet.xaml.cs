@@ -12,10 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UI.Abstractions.ViewsAbstractions;
 
 namespace UI.WPF.Views;
 
-public partial class Coverlet : Window
+public partial class Coverlet : Window, ICoverView
 {
     // Import user32.dll to use the SetWindowLong function
     [DllImport("user32.dll")]
@@ -57,5 +58,20 @@ public partial class Coverlet : Window
             // Example: Drag the window
             DragMove();
         }
+    }
+
+    public bool CanAppear()
+    {
+        return true;
+    }
+
+    public void Appear()
+    {
+        Show();
+    }
+
+    public void Exit()
+    {
+        Close();
     }
 }

@@ -7,4 +7,8 @@ public interface IMainViewModel
     public ICommand AppearCommand { get; }
 
     public ICommand ExitCommand { get; }
+
+    public ICommand LightsOutCommand { get; }
+
+    public ICommand LightsOnCommand { get; }
 }

@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using UI.Abstractions.ViewsAbstractions;
 using UI.WPF.Factories;
 using UI.WPF.Factories.Concrete;
 using UI.WPF.Views;
@@ -25,6 +26,7 @@ public partial class App : Application
         {
             services.AddSingleton<MainWindow>();
             services.AddTransient<IMainViewModelFactory, MainViewModelFactory>();
+            services.AddSingleton<ICoverView, Coverlet>();
         }).Build();
     }
 
