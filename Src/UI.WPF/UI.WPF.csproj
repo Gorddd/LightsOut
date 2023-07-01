@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UI.Abstractions\UI.Abstractions.csproj" />
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\moon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

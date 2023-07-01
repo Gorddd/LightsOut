@@ -12,6 +12,6 @@
     <Grid>
         <tb:TaskbarIcon x:Name="taskBarIcon"
                         IconSource="/Resources/moon.ico"
-                        LeftClickCommand="{Binding MainWindowService.AppearCommand}"/>
+                        LeftClickCommand="{Binding AppearCommand}"/>
     </Grid>
 </Window>

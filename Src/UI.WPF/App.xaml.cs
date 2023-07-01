@@ -7,10 +7,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using UI.WPF.Commands;
-using UI.WPF.Commands.Concrete;
-using UI.WPF.UIServices;
-using UI.WPF.UIServices.Concrete;
+using UI.WPF.Factories;
+using UI.WPF.Factories.Concrete;
 using UI.WPF.Views;
 
 namespace UI.WPF;
@@ -26,7 +24,7 @@ public partial class App : Application
         host = builder.ConfigureServices(services =>
         {
             services.AddSingleton<MainWindow>();
-            services.AddTransient<IMainWindowService, MainWindowService>();
+            services.AddTransient<IMainViewModelFactory, MainViewModelFactory>();
         }).Build();
     }
 

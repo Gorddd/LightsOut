@@ -11,37 +11,28 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using UI.WPF.UIServices;
+using UI.Abstractions.ViewsAbstractions;
+using UI.WPF.Factories;
 
-namespace UI.WPF.Views
+namespace UI.WPF.Views;
+
+public partial class MainWindow : Window, IAppearView
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow(IMainViewModelFactory viewModelFactory)
     {
-        public IMainWindowService MainWindowService { get; }
+        InitializeComponent();
 
-        public MainWindow(IMainWindowService mainWindowService)
-        {
-            InitializeComponent();
+        DataContext = viewModelFactory.Create(this);
+    }
 
-            MainWindowService = mainWindowService;
+    public void Appear()
+    {
+        WindowState = WindowState.Normal;
+        Activate();
+    }
 
-            DataContext = this;
-
-            ConfigureOptions();
-        }
-
-        private void ConfigureOptions()
-        {
-            MainWindowService.AppearCommand.Appear = () =>
-            {
-                WindowState = WindowState.Normal;
-                Activate();
-            };
-            MainWindowService.AppearCommand.CanExecuteFunc = obj =>
-                WindowState == WindowState.Minimized;
-        }
+    public bool CanAppear()
+    {
+        return WindowState == WindowState.Minimized;
     }
 }
