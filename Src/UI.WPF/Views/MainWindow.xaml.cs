@@ -23,6 +23,8 @@ public partial class MainWindow : Window, IAppearView
         InitializeComponent();
 
         DataContext = viewModelFactory.Create(this);
+
+        StateChanged += StateChanging;
     }
 
     public void Appear()
@@ -34,5 +36,17 @@ public partial class MainWindow : Window, IAppearView
     public bool CanAppear()
     {
         return WindowState == WindowState.Minimized;
+    }
+
+    private void StateChanging(object? sender, EventArgs e)
+    {
+        if (WindowState == WindowState.Normal)
+        {
+            ShowInTaskbar = true;
+        }
+        if (WindowState == WindowState.Minimized)
+        {
+            ShowInTaskbar = false;
+        }
     }
 }
