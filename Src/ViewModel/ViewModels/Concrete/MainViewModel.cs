@@ -9,10 +9,13 @@ namespace ViewModel.ViewModels.Concrete;
 
 public class MainViewModel : ViewModelBase, IMainViewModel
 {
-    public MainViewModel(ICommand appearCommand)
+    public MainViewModel(ICommand appearCommand, ICommand exitCommand)
     {
         AppearCommand = appearCommand;
+        ExitCommand = exitCommand;
     }
 
     public ICommand AppearCommand { get; }
+
+    public ICommand ExitCommand { get; }
 }

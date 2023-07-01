@@ -13,53 +13,49 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace UI.WPF.Views
+namespace UI.WPF.Views;
+
+public partial class Coverlet : Window
 {
-    /// <summary>
-    /// Interaction logic for Coverlet.xaml
-    /// </summary>
-    public partial class Coverlet : Window
+    // Import user32.dll to use the SetWindowLong function
+    [DllImport("user32.dll")]
+    public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+    // Import user32.dll to use the GetWindowLong function
+    [DllImport("user32.dll")]
+    public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+    // Constants for window styles
+    private const int GWL_EXSTYLE = -20;
+    private const int WS_EX_TRANSPARENT = 0x00000020;
+
+    public Coverlet()
     {
-        // Import user32.dll to use the SetWindowLong function
-        [DllImport("user32.dll")]
-        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        InitializeComponent();
+    }
 
-        // Import user32.dll to use the GetWindowLong function
-        [DllImport("user32.dll")]
-        public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
 
-        // Constants for window styles
-        private const int GWL_EXSTYLE = -20;
-        private const int WS_EX_TRANSPARENT = 0x00000020;
+        // Get the handle of the window
+        IntPtr hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
 
-        public Coverlet()
+        // Set the window style to allow click-through
+        int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
+    }
+
+    protected override void OnMouseDown(MouseButtonEventArgs e)
+    {
+        // Handle mouse down event (optional)
+        base.OnMouseDown(e);
+
+        if (e.ChangedButton == MouseButton.Left)
         {
-            InitializeComponent();
-        }
-
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-
-            // Get the handle of the window
-            IntPtr hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
-
-            // Set the window style to allow click-through
-            int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
-        }
-
-        protected override void OnMouseDown(MouseButtonEventArgs e)
-        {
-            // Handle mouse down event (optional)
-            base.OnMouseDown(e);
-
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                // Perform your desired action when left mouse button is clicked
-                // Example: Drag the window
-                DragMove();
-            }
+            // Perform your desired action when left mouse button is clicked
+            // Example: Drag the window
+            DragMove();
         }
     }
 }

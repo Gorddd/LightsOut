@@ -7,8 +7,8 @@ namespace UI.WPF.Factories.Concrete;
 
 public class MainViewModelFactory : IMainViewModelFactory
 {
-    public IMainViewModel Create(IAppearView appearView)
+    public IMainViewModel Create(IMainView mainView)
     {
-        return new MainViewModel(new AppearCommand(appearView));
+        return new MainViewModel(new AppearCommand(mainView), new ExitCommand(mainView));
     }
 }

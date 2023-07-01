@@ -16,15 +16,13 @@ using UI.WPF.Factories;
 
 namespace UI.WPF.Views;
 
-public partial class MainWindow : Window, IAppearView
+public partial class MainWindow : Window, IMainView
 {
     public MainWindow(IMainViewModelFactory viewModelFactory)
     {
         InitializeComponent();
 
         DataContext = viewModelFactory.Create(this);
-
-        StateChanged += StateChanging;
     }
 
     public void Appear()
@@ -36,6 +34,11 @@ public partial class MainWindow : Window, IAppearView
     public bool CanAppear()
     {
         return WindowState == WindowState.Minimized;
+    }
+
+    public void Exit()
+    {
+        Close();
     }
 
     private void StateChanging(object? sender, EventArgs e)

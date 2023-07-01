@@ -7,10 +7,21 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Title="LightsOut" Height="450" Width="800"
-        Icon="/Resources/moon.ico">
+        Icon="/Resources/moon.ico"
+        StateChanged="StateChanging">
+    <Window.Resources>
+        <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
+            <MenuItem Header="Show Window" Command="{Binding ShowWindowCommand}" />
+            <MenuItem Header="Hide Window" Command="{Binding HideWindowCommand}" />
+            <Separator />
+            <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
+        </ContextMenu>
+    </Window.Resources>
     <Grid>
         <tb:TaskbarIcon x:Name="taskBarIcon"
                         IconSource="/Resources/moon.ico"
-                        LeftClickCommand="{Binding AppearCommand}"/>
+                        ToolTipText="LightsOut"
+                        LeftClickCommand="{Binding AppearCommand}"
+                        ContextMenu="{StaticResource SysTrayMenu}"/>
     </Grid>
 </Window>
