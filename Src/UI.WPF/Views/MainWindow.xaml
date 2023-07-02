@@ -65,13 +65,6 @@
                             Minimum="0"
                             Maximum="90"
                             Value="{Binding Opacity, Mode=TwoWay}" LargeChange="5" SmallChange="1">
-                        <!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="ValueChanged">
-                                <i:InvokeCommandAction 
-                                    Command="{Binding ChangeOpacityCommand}"
-                                    CommandParameter="{Binding Path=Value, RelativeSource={RelativeSource AncestorType=Slider}}"></i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="ValueChanged">
                                 <i:InvokeCommandAction 

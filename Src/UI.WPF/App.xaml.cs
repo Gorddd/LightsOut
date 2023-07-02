@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,6 +12,7 @@ using UI.Abstractions.ViewsAbstractions;
 using UI.WPF.Factories;
 using UI.WPF.Factories.Concrete;
 using UI.WPF.Views;
+using UI.WPF.Configs;
 
 namespace UI.WPF;
 
@@ -22,8 +24,14 @@ public partial class App : Application
     {
         var builder = Host.CreateDefaultBuilder();
 
+        var config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+        var appSettings = config.Get<AppSettings>() ?? throw new InvalidOperationException("You must have appsettings.json file!!!");
+
         host = builder.ConfigureServices(services =>
         {
+            services.AddSingleton(appSettings);
             services.AddSingleton<MainWindow>();
             services.AddTransient<IMainViewModelFactory, MainViewModelFactory>();
             services.AddSingleton<ICoverView, Coverlet>();
