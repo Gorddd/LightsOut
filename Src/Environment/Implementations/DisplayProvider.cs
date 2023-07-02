@@ -15,6 +15,6 @@ public class DisplayProvider : IDisplayProvider
             Top = screen.WpfWorkingArea.Top,
             Height = screen.WpfWorkingArea.Height,
             Width = screen.WpfWorkingArea.Width,
-        });
+        }).ToList();
     }
 }

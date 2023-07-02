@@ -13,6 +13,7 @@
     <Window.Resources>
         <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
             <MenuItem Header="button" Click="Button_Click" />
+            <MenuItem Header="new window" Click="MenuItem_Click" />
         </ContextMenu>
     </Window.Resources>
     <Grid Background="White">

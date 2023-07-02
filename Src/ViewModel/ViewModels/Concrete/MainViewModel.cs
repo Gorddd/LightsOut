@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Core.Classes;
+using Core.Services;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +16,19 @@ public class MainViewModel : ViewModelBase, IMainViewModel
 {
     private readonly ILightsConsole _lightsConsole;
 
-    public MainViewModel(ICommand appearCommand, ICommand exitCommand, ICommand changeOpacityCommand, ILightsConsole lightsConsole, double opacity)
+    private readonly IDisplayService _displayService;
+
+    public MainViewModel(ICommand appearCommand, ICommand exitCommand, ICommand changeOpacityCommand, 
+        ILightsConsole lightsConsole, double opacity, IDisplayService displayService)
     {
         AppearCommand = appearCommand;
         ExitCommand = exitCommand;
         ChangeOpacityCommand = changeOpacityCommand;
         _lightsConsole = lightsConsole;
         Opacity = opacity;
+        _displayService = displayService;
+
+        _displays = new ObservableCollection<Display>(_displayService.GetDisplays());
     }
 
     public ICommand AppearCommand { get; }
@@ -45,4 +54,7 @@ public class MainViewModel : ViewModelBase, IMainViewModel
             OnPropertyChanged(nameof(Opacity));
         }
     }
+
+    private readonly ObservableCollection<Display> _displays;
+    public IEnumerable<Display> Displays => _displays;
 }

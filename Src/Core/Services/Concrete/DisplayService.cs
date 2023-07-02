@@ -24,7 +24,7 @@ public class DisplayService : IDisplayService
     {
         void InitializeActualDisplays(IEnumerable<Display> actualDisplays)
         {
-            actualDisplays.Single(d => d.Name == "Display 1").IsCovered = true;
+            actualDisplays.Single(d => d.Name == "Display 0").IsCovered = true;
 
             foreach (var display in actualDisplays)
                 if (display.IsCovered == null)

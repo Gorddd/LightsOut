@@ -13,6 +13,10 @@ using UI.WPF.Factories;
 using UI.WPF.Factories.Concrete;
 using UI.WPF.Views;
 using UI.WPF.Configs;
+using Core.Services;
+using Core.Services.Concrete;
+using Core.Abstractions;
+using Environment.Implementations;
 
 namespace UI.WPF;
 
@@ -35,6 +39,9 @@ public partial class App : Application
             services.AddSingleton<MainWindow>();
             services.AddTransient<IMainViewModelFactory, MainViewModelFactory>();
             services.AddSingleton<ICoverView, Coverlet>();
+            services.AddTransient<IDisplayService, DisplayService>();
+            services.AddTransient<IDisplayRepository, DisplayRepository>();
+            services.AddTransient<IDisplayProvider, DisplayProvider>();
         }).Build();
     }
 
