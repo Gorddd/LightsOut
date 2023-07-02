@@ -16,7 +16,7 @@ public class MainViewModelFactory : IMainViewModelFactory
 
     public IMainViewModel Create(IMainView mainView)
     {
-        return new MainViewModel(new AppearCommand(mainView), new ExitCommand(mainView, _cover), 
+        return new MainViewModel(new AppearCommand(mainView), new ExitCommand(mainView, _cover), new ChangeOpacityCommand(_cover),
             new LightsConsole(new LightsOutCommand(_cover), new LightsOnCommand(_cover)));
     }
 }

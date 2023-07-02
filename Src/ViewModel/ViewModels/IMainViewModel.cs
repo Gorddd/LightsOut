@@ -11,4 +11,6 @@ public interface IMainViewModel
     public ICommand LightsOutCommand { get; }
 
     public ICommand LightsOnCommand { get; }
+
+    public double Opacity { get; }
 }

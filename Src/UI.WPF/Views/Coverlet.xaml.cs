@@ -74,4 +74,9 @@ public partial class Coverlet : Window, ICoverView
     {
         Close();
     }
+
+    public void ChangeOpacity(double opacity)
+    {
+        Opacity = opacity / 100;
+    }
 }

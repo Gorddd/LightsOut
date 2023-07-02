@@ -13,10 +13,11 @@ public class MainViewModel : ViewModelBase, IMainViewModel
 {
     private readonly ILightsConsole _lightsConsole;
 
-    public MainViewModel(ICommand appearCommand, ICommand exitCommand, ILightsConsole lightsConsole)
+    public MainViewModel(ICommand appearCommand, ICommand exitCommand, ICommand changeOpacityCommand, ILightsConsole lightsConsole)
     {
         AppearCommand = appearCommand;
         ExitCommand = exitCommand;
+        ChangeOpacityCommand = changeOpacityCommand;
         _lightsConsole = lightsConsole;
     }
 
@@ -24,8 +25,24 @@ public class MainViewModel : ViewModelBase, IMainViewModel
 
     public ICommand ExitCommand { get; }
 
+    public ICommand ChangeOpacityCommand { get; }
+
 
     public ICommand LightsOutCommand => _lightsConsole.LightsOutCommand;
 
     public ICommand LightsOnCommand => _lightsConsole.LightsOnCommand;
+
+    private double _opacity = 10;
+    public double Opacity
+    {
+        get
+        {
+            return _opacity;
+        }
+        set
+        {
+            _opacity = value;
+            OnPropertyChanged(nameof(Opacity));
+        }
+    }
 }
