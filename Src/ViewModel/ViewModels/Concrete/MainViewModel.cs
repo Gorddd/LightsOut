@@ -16,22 +16,13 @@ public class MainViewModel : ViewModelBase, IMainViewModel
     public MainViewModel(ICommand appearCommand, ICommand exitCommand, ILightsConsole lightsConsole)
     {
         AppearCommand = appearCommand;
-        _exitCommand = exitCommand;
+        ExitCommand = exitCommand;
         _lightsConsole = lightsConsole;
     }
 
     public ICommand AppearCommand { get; }
 
-
-    private readonly ICommand _exitCommand;
-
-    public ICommand ExitCommand
-    {
-        get
-        {
-            return _exitCommand;
-        }
-    }
+    public ICommand ExitCommand { get; }
 
 
     public ICommand LightsOutCommand => _lightsConsole.LightsOutCommand;

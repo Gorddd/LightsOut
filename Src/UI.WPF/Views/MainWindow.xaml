@@ -3,12 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:cmd="http://schemas.microsoft.com/winfx/2006/xaml/presentation/command"
         xmlns:local="clr-namespace:UI.WPF.Views"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Title="LightsOut" Height="450" Width="800"
         Icon="/Resources/moon.ico"
         StateChanged="StateChanging">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding ExitCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Window.Resources>
         <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
             <MenuItem Header="Lights Out" Command="{Binding LightsOutCommand}" />
