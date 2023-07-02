@@ -49,7 +49,16 @@
                                   Content="On/Off"
                                   Height="30"
                                   Width="90"
-                                  Margin="0 0 0 0"></ToggleButton>
+                                  Margin="0 0 0 0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Unchecked">
+                                <i:InvokeCommandAction Command="{Binding LightsOnCommand}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding LightsOutCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ToggleButton>
 
                     <Slider Grid.Column="1" Margin="0 6 4 0"></Slider>
                 </Grid>
