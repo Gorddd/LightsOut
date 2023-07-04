@@ -15,7 +15,7 @@ public class DisplayRepository : IDisplayRepository
 
         var content = File.ReadAllText(_fileName);
 
-        return JsonConvert.DeserializeObject<IEnumerable<Display>>(content);
+        return JsonConvert.DeserializeObject<IEnumerable<Display>>(content)?.ToList();
     }
 
     public void SaveOrOverwrite(IEnumerable<Display> displays)

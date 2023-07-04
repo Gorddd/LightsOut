@@ -10,20 +10,18 @@ namespace UI.WPF.Factories.Concrete;
 public class MainViewModelFactory : IMainViewModelFactory
 {
     private readonly AppSettings _appSettings;
-    private readonly ICoverView _cover;
+
     private readonly IDisplayService _displayService;
 
-
-    public MainViewModelFactory(ICoverView coverView, AppSettings appSettings, IDisplayService displayService)
+    public MainViewModelFactory(AppSettings appSettings, IDisplayService displayService)
     {
-        _cover = coverView;
         _appSettings = appSettings;
         _displayService = displayService;
     }
 
     public IMainViewModel Create(IMainView mainView)
     {
-        return new MainViewModel(new AppearCommand(mainView), new ExitCommand(mainView, _cover), new ChangeOpacityCommand(_cover),
-            new LightsConsole(new LightsOutCommand(_cover), new LightsOnCommand(_cover)), _appSettings.Opacity, _displayService);
+        return new MainViewModel(new AppearCommand(mainView), new ExitCommand(mainView, _displayService), new ChangeOpacityCommand(_displayService),
+            new LightsConsole(new LightsOutCommand(_displayService), new LightsOnCommand(_displayService)), _appSettings.Opacity, _displayService);
     }
 }

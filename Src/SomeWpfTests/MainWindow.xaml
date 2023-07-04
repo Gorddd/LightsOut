@@ -16,7 +16,7 @@
             <MenuItem Header="new window" Click="MenuItem_Click" />
         </ContextMenu>
     </Window.Resources>
-    <Grid Background="White">
+    <Grid Background="Black">
         <tb:TaskbarIcon IconSource="moon.ico"
                         ContextMenu="{StaticResource SysTrayMenu}"></tb:TaskbarIcon>
     </Grid>

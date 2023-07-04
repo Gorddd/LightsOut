@@ -1,15 +1,16 @@
-﻿using System.Windows.Input;
+﻿using Core.Services;
+using System.Windows.Input;
 using UI.Abstractions.ViewsAbstractions;
 
 namespace ViewModel.Commands;
 
 public class LightsOnCommand : ICommand
 {
-    private readonly ICoverView _cover;
+    private readonly IDisplayService _displayService;
 
-    public LightsOnCommand(ICoverView cover)
+    public LightsOnCommand(IDisplayService displayService)
     {
-        _cover = cover;
+        _displayService = displayService;
     }
 
     public event EventHandler? CanExecuteChanged;
@@ -21,6 +22,6 @@ public class LightsOnCommand : ICommand
 
     public void Execute(object? parameter)
     {
-        _cover.Hide();
+        _displayService.Uncover();
     }
 }

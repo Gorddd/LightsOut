@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Abstractions;
+using Core.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -16,7 +18,7 @@ using UI.Abstractions.ViewsAbstractions;
 
 namespace UI.WPF.Views;
 
-public partial class Coverlet : Window, ICoverView
+public partial class Coverlet : Window, ICover
 {
     // Import user32.dll to use the SetWindowLong function
     [DllImport("user32.dll")]
@@ -60,17 +62,12 @@ public partial class Coverlet : Window, ICoverView
         }
     }
 
-    public bool CanAppear()
-    {
-        return true;
-    }
-
     public void Appear()
     {
         Show();
     }
 
-    public void Exit()
+    public void Dispose()
     {
         Close();
     }
@@ -78,5 +75,10 @@ public partial class Coverlet : Window, ICoverView
     public void ChangeOpacity(double opacity)
     {
         Opacity = opacity / 100;
+    }
+
+    public void Disappear()
+    {
+        Hide();
     }
 }

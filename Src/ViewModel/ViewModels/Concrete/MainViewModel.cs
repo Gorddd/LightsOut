@@ -16,8 +16,6 @@ public class MainViewModel : ViewModelBase, IMainViewModel
 {
     private readonly ILightsConsole _lightsConsole;
 
-    private readonly IDisplayService _displayService;
-
     public MainViewModel(ICommand appearCommand, ICommand exitCommand, ICommand changeOpacityCommand, 
         ILightsConsole lightsConsole, double opacity, IDisplayService displayService)
     {
@@ -26,9 +24,8 @@ public class MainViewModel : ViewModelBase, IMainViewModel
         ChangeOpacityCommand = changeOpacityCommand;
         _lightsConsole = lightsConsole;
         Opacity = opacity;
-        _displayService = displayService;
 
-        _displays = new ObservableCollection<Display>(_displayService.GetDisplays());
+        _displays = new ObservableCollection<Display>(displayService.Displays);
     }
 
     public ICommand AppearCommand { get; }

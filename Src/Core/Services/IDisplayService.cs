@@ -2,7 +2,15 @@
 
 namespace Core.Services;
 
-public interface IDisplayService
+public interface IDisplayService : IDisposable
 {
-    public IEnumerable<Display> GetDisplays();
+    public IEnumerable<Display> Displays { get; }
+
+    public void Update();
+
+    public void Cover();
+
+    public void Uncover();
+
+    public void ChangeOpacity(double opacity);
 }

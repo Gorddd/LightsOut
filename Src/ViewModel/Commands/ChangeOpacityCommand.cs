@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,11 @@ namespace ViewModel.Commands;
 
 public class ChangeOpacityCommand : ICommand
 {
-    private readonly ICoverView _cover;
+    private readonly IDisplayService _displayService;
 
-    public ChangeOpacityCommand(ICoverView cover)
+    public ChangeOpacityCommand(IDisplayService displayService)
     {
-        _cover = cover;
+        _displayService = displayService;
     }
 
     public event EventHandler? CanExecuteChanged;
@@ -26,6 +27,6 @@ public class ChangeOpacityCommand : ICommand
 
     public void Execute(object? parameter)
     {
-        _cover.ChangeOpacity((double)parameter!);
+        _displayService.ChangeOpacity((double)parameter!);
     }
 }

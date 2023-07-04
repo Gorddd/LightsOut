@@ -1,26 +1,27 @@
-﻿using System.Windows.Input;
+﻿using Core.Services;
+using System.Windows.Input;
 using UI.Abstractions.ViewsAbstractions;
 
 namespace ViewModel.Commands;
 
 public class LightsOutCommand : ICommand
 {
-    private readonly ICoverView _cover;
+    private readonly IDisplayService _displayService;
 
-    public LightsOutCommand(ICoverView cover)
+    public LightsOutCommand(IDisplayService displayService)
     {
-        _cover = cover;
+        _displayService = displayService;
     }
 
     public event EventHandler? CanExecuteChanged;
 
     public bool CanExecute(object? parameter)
     {
-        return _cover.CanAppear();
+        return true;
     }
 
     public void Execute(object? parameter)
     {
-        _cover.Appear();
+        _displayService.Cover();
     }
 }

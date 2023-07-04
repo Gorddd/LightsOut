@@ -38,10 +38,10 @@ public partial class App : Application
             services.AddSingleton(appSettings);
             services.AddSingleton<MainWindow>();
             services.AddTransient<IMainViewModelFactory, MainViewModelFactory>();
-            services.AddSingleton<ICoverView, Coverlet>();
             services.AddTransient<IDisplayService, DisplayService>();
             services.AddTransient<IDisplayRepository, DisplayRepository>();
             services.AddTransient<IDisplayProvider, DisplayProvider>();
+            services.AddTransient<ICoverFactory, CoverFactory>();
         }).Build();
     }
 

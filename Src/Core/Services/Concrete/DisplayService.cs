@@ -3,7 +3,6 @@ using Core.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,14 +12,21 @@ public class DisplayService : IDisplayService
 {
     private readonly IDisplayProvider _displayProvider;
     private readonly IDisplayRepository _repository;
+    private IEnumerable<Display> _workingDisplays;
 
-    public DisplayService(IDisplayProvider displayProvider, IDisplayRepository displayRepository)
+    private readonly DisplayManager _displayManager;
+
+    public IEnumerable<Display> Displays => _workingDisplays.ToList();
+
+    public DisplayService(IDisplayProvider displayProvider, IDisplayRepository displayRepository, ICoverFactory coverFactory)
     {
         _displayProvider = displayProvider;
         _repository = displayRepository;
+        _workingDisplays = GetOrUpdateDisplays();
+        _displayManager = new DisplayManager(coverFactory, _workingDisplays);
     }
 
-    public IEnumerable<Display> GetDisplays()
+    private IEnumerable<Display> GetOrUpdateDisplays()
     {
         void InitializeActualDisplays(IEnumerable<Display> actualDisplays)
         {
@@ -60,5 +66,31 @@ public class DisplayService : IDisplayService
             }
             return storageDisplays;
         }
+    }
+
+    public void Update()
+    {
+        _workingDisplays = GetOrUpdateDisplays();
+        _displayManager.UpdateDisplays(_workingDisplays);
+    }
+
+    public void Cover()
+    {
+        _displayManager.CoverDisplays();
+    }
+
+    public void Uncover()
+    {
+        _displayManager.UncoverDisplays();
+    }
+
+    public void ChangeOpacity(double opacity)
+    {
+        _displayManager.ChangeOpacity(opacity);
+    }
+
+    public void Dispose()
+    {
+        _displayManager.Dispose();
     }
 }
