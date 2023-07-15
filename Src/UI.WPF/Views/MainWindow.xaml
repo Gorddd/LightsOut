@@ -8,9 +8,11 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:hc="https://handyorg.github.io/handycontrol" x:Class="UI.WPF.Views.MainWindow"
         mc:Ignorable="d"
-        Title="LightsOut" Height="450" Width="800"
+        Title="LightsOut" 
         Icon="/Resources/moon.ico"
-        StateChanged="StateChanging">
+        StateChanged="StateChanging" 
+        Height="280" Width="533" MinWidth="553" MinHeight="280"
+        ResizeMode="CanMinimize">
 
     <Window.Resources>
         <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
@@ -31,13 +33,17 @@
     </i:Interaction.Triggers>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="531*"/>
+            <ColumnDefinition Width="22*"/>
+        </Grid.ColumnDefinitions>
         <tb:TaskbarIcon x:Name="taskBarIcon"
                         IconSource="/Resources/moon.ico"
                         ToolTipText="LightsOut"
                         LeftClickCommand="{Binding AppearCommand}"
-                        ContextMenu="{StaticResource SysTrayMenu}"/>
+                        ContextMenu="{StaticResource SysTrayMenu}" Grid.ColumnSpan="2"/>
 
-        <StackPanel>
+        <StackPanel Grid.ColumnSpan="2">
             <Border Margin="20 20 20 0" 
                     Background="AliceBlue"
                     Style="{StaticResource BorderCircular}">

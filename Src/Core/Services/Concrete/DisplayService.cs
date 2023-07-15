@@ -90,7 +90,7 @@ public class DisplayService : IDisplayService
 
     public void Dispose()
     {
-        //add save working displays
+        _repository.SaveOrOverwrite(Displays);
 
         _displayManager.Dispose();
     }
