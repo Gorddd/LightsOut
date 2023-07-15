@@ -12,10 +12,25 @@
         Icon="/Resources/moon.ico"
         StateChanged="StateChanging" 
         Height="280" Width="533" MinWidth="553" MinHeight="280"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        Background="White">
 
     <Window.Resources>
         <ContextMenu x:Shared="false" x:Key="SysTrayMenu">
+            <Slider Grid.Column="1" 
+                            Margin="0 6 4 0"
+                            Minimum="0"
+                            Maximum="90"
+                            Value="{Binding Opacity}" LargeChange="5" SmallChange="1"
+                            Name="slider">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction 
+                                    Command="{Binding ChangeOpacityCommand}"
+                                    CommandParameter="{Binding Opacity}"></i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Slider>
             <MenuItem Header="Lights Out" Command="{Binding LightsOutCommand}" />
             <MenuItem Header="Lights On" Command="{Binding LightsOnCommand}" />
             <Separator />
@@ -74,8 +89,7 @@
                             Margin="0 6 4 0"
                             Minimum="0"
                             Maximum="90"
-                            Value="{Binding Opacity}" LargeChange="5" SmallChange="1"
-                            Name="slider">
+                            Value="{Binding Opacity}" LargeChange="5" SmallChange="1">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="ValueChanged">
                                 <i:InvokeCommandAction 
