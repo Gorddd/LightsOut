@@ -7,7 +7,9 @@ class DisplayManager : IDisposable
 {
     private readonly ICoverFactory _coverFactory;
 
-    private List<ICover> _covers = null!;
+    record CoverIsCovered(ICover Cover, bool IsCovered);
+
+    private List<CoverIsCovered> _covers = null!;
 
     public DisplayManager(ICoverFactory coverFactory, IEnumerable<Display> displays)
     {
@@ -17,9 +19,9 @@ class DisplayManager : IDisposable
 
     private void InitializeCovers(IEnumerable<Display> displays)
     {
-        _covers = new List<ICover>();
+        _covers = new List<CoverIsCovered>();
         foreach (var display in displays)
-            _covers.Add(_coverFactory.Create(display));
+            _covers.Add(new CoverIsCovered(_coverFactory.Create(display), display.IsCovered!.Value));
     }
 
     public void UpdateDisplays(IEnumerable<Display> displays)
@@ -30,24 +32,25 @@ class DisplayManager : IDisposable
     public void CoverDisplays()
     {
         foreach (var cover in _covers)
-            cover.Appear();
+            if (cover.IsCovered)
+                cover.Cover.Appear();
     }
 
     public void UncoverDisplays()
     {
         foreach (var cover in _covers)
-            cover.Disappear();
+            cover.Cover.Disappear();
     }
 
     public void ChangeOpacity(double opacity)
     {
         foreach (var cover in _covers)
-            cover.ChangeOpacity(opacity);
+            cover.Cover.ChangeOpacity(opacity);
     }
 
     public void Dispose()
     {
         foreach (var cover in _covers)
-            cover.Dispose();
+            cover.Cover.Dispose();
     }
 }
