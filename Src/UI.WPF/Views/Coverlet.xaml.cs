@@ -20,17 +20,22 @@ namespace UI.WPF.Views;
 
 public partial class Coverlet : Window, ICover
 {
-    // Import user32.dll to use the SetWindowLong function
     [DllImport("user32.dll")]
     public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-    // Import user32.dll to use the GetWindowLong function
     [DllImport("user32.dll")]
     public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+    [DllImport("user32.dll")]
+    private static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
     // Constants for window styles
     private const int GWL_EXSTYLE = -20;
     private const int WS_EX_TRANSPARENT = 0x00000020;
+
+    private const int HWND_TOPMOST = -1;
+    private const int SWP_NOMOVE = 0x0002;
+    private const int SWP_NOSIZE = 0x0001;
 
     public Coverlet()
     {
@@ -47,6 +52,7 @@ public partial class Coverlet : Window, ICover
         // Set the window style to allow click-through
         int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
         SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
+        SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
     }
 
     protected override void OnMouseDown(MouseButtonEventArgs e)
@@ -56,8 +62,6 @@ public partial class Coverlet : Window, ICover
 
         if (e.ChangedButton == MouseButton.Left)
         {
-            // Perform your desired action when left mouse button is clicked
-            // Example: Drag the window
             DragMove();
         }
     }

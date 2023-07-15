@@ -1,6 +1,7 @@
 ﻿using Environment;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -30,19 +31,34 @@ namespace SomeWpfTests
         [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
+        [DllImport("user32.dll")]
+        private static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
         // Constants for window styles
         private const int GWL_EXSTYLE = -20;
         private const int WS_EX_TRANSPARENT = 0x00000020;
 
+        private const int HWND_TOPMOST = -1;
+        private const int SWP_NOMOVE = 0x0002;
+        private const int SWP_NOSIZE = 0x0001;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Loaded += LoadedW;
 
             Closed += (object? sender, EventArgs e) =>
             {
                 mainWindows.ForEach(w => w.Close());
                 Close();
             };
+        }
+
+        private void LoadedW(object sender, RoutedEventArgs e)
+        {
+            IntPtr hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -82,7 +98,7 @@ namespace SomeWpfTests
                 mainWindow.Left = screen.WpfWorkingArea.Left;
                 mainWindow.Top = screen.WpfWorkingArea.Top;
                 mainWindow.Width = screen.WpfWorkingArea.Width;
-                mainWindow.Height = screen.WpfWorkingArea.Height;
+                mainWindow.Height = screen.Bounds.Height;
             }
 
             var allocateNewWindow = false;

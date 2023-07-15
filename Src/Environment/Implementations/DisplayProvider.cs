@@ -11,10 +11,10 @@ public class DisplayProvider : IDisplayProvider
         return Screen.AllScreens.Select((screen, index) => new Display
         {
             Name = $"Display {index}",
-            Left = screen.WpfWorkingArea.Left,
-            Top = screen.WpfWorkingArea.Top,
-            Height = screen.WpfWorkingArea.Height,
-            Width = screen.WpfWorkingArea.Width,
+            Left = screen.Bounds.Left,
+            Top = screen.Bounds.Top,
+            Height = screen.Bounds.Height,
+            Width = screen.Bounds.Width,
         }).ToList();
     }
 }
