@@ -17,6 +17,7 @@ using Core.Services;
 using Core.Services.Concrete;
 using Core.Abstractions;
 using Environment.Implementations;
+using ViewModel.Abstractions;
 
 namespace UI.WPF;
 
@@ -28,15 +29,10 @@ public partial class App : Application
     {
         var builder = Host.CreateDefaultBuilder();
 
-        var config = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .Build();
-        var appSettings = config.Get<AppSettings>() ?? throw new InvalidOperationException("You must have appsettings.json file!!!");
-
         host = builder.ConfigureServices(services =>
         {
-            services.AddSingleton(appSettings);
             services.AddSingleton<MainWindow>();
+            services.AddTransient<IOpacityRepository, OpacityRepository>();
             services.AddTransient<IMainViewModelFactory, MainViewModelFactory>();
             services.AddTransient<IDisplayService, DisplayService>();
             services.AddTransient<IDisplayRepository, DisplayRepository>();

@@ -17,13 +17,16 @@
             <MenuItem Header="Lights Out" Command="{Binding LightsOutCommand}" />
             <MenuItem Header="Lights On" Command="{Binding LightsOnCommand}" />
             <Separator />
-            <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
+            <MenuItem Header="Exit" 
+                      Command="{Binding ExitCommand}" 
+                      CommandParameter="{Binding Opacity}"/>
         </ContextMenu>
     </Window.Resources>
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
-            <i:InvokeCommandAction Command="{Binding ExitCommand}" />
+            <i:InvokeCommandAction Command="{Binding ExitCommand}" 
+                                   CommandParameter="{Binding Opacity}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -64,7 +67,8 @@
                             Margin="0 6 4 0"
                             Minimum="0"
                             Maximum="90"
-                            Value="{Binding Opacity, Mode=TwoWay}" LargeChange="5" SmallChange="1">
+                            Value="{Binding Opacity}" LargeChange="5" SmallChange="1"
+                            Name="slider">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="ValueChanged">
                                 <i:InvokeCommandAction 

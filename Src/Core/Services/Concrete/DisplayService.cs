@@ -91,6 +91,8 @@ public class DisplayService : IDisplayService
 
     public void Dispose()
     {
+        //add save working displays
+
         _displayManager.Dispose();
     }
 }

@@ -38,7 +38,7 @@ public class MainViewModel : ViewModelBase, IMainViewModel
 
     public ICommand LightsOnCommand => _lightsConsole.LightsOnCommand;
 
-    private double _opacity = 10;
+    private double _opacity;
     public double Opacity
     {
         get

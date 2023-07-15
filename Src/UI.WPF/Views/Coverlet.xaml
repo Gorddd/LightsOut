@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:UI.WPF.Views"
         mc:Ignorable="d"
         Title="Coverlet" Height="450" Width="800"
-        Topmost="True" AllowsTransparency="True" Background="Transparent" WindowStyle="None" Opacity="0.1"
+        Topmost="True" AllowsTransparency="True" Background="Transparent" WindowStyle="None"
         ShowInTaskbar="false">
     <Grid Background="Black">
         

@@ -37,9 +37,11 @@ public partial class Coverlet : Window, ICover
     private const int SWP_NOMOVE = 0x0002;
     private const int SWP_NOSIZE = 0x0001;
 
-    public Coverlet()
+    public Coverlet(double opacity)
     {
         InitializeComponent();
+
+        ChangeOpacity(opacity);
     }
 
     protected override void OnSourceInitialized(EventArgs e)
