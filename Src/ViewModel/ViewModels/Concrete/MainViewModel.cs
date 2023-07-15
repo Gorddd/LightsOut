@@ -9,21 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using UI.Abstractions.Other;
 using UI.Abstractions.ViewsAbstractions;
+using ViewModel.Commands;
 
 namespace ViewModel.ViewModels.Concrete;
 
 public class MainViewModel : ViewModelBase, IMainViewModel
 {
-    private readonly ILightsConsole _lightsConsole;
-
     public MainViewModel(ICommand appearCommand, ICommand exitCommand, ICommand changeOpacityCommand, 
         ILightsConsole lightsConsole, double opacity, IDisplayService displayService)
     {
         AppearCommand = appearCommand;
         ExitCommand = exitCommand;
         ChangeOpacityCommand = changeOpacityCommand;
-        _lightsConsole = lightsConsole;
         Opacity = opacity;
+
+        LightsOutCommand = new LightsOutCommandWrapper(() => IsChecked = true, lightsConsole.LightsOutCommand);
+        LightsOnCommand = new LightsOnCommandWrapper(() => IsChecked = false, lightsConsole.LightsOnCommand);
 
         _displays = new ObservableCollection<Display>(displayService.Displays);
     }
@@ -34,9 +35,23 @@ public class MainViewModel : ViewModelBase, IMainViewModel
 
     public ICommand ChangeOpacityCommand { get; }
 
-    public ICommand LightsOutCommand => _lightsConsole.LightsOutCommand;
+    public ICommand LightsOutCommand { get; }
 
-    public ICommand LightsOnCommand => _lightsConsole.LightsOnCommand;
+    public ICommand LightsOnCommand { get; }
+
+    private bool _isChecked;
+    public bool IsChecked
+    {
+        get
+        {
+            return _isChecked;
+        }
+        set
+        {
+            _isChecked = value;
+            OnPropertyChanged(nameof(IsChecked));
+        }
+    }
 
     private double _opacity;
     public double Opacity

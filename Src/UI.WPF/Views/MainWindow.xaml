@@ -17,7 +17,7 @@
             <MenuItem Header="Lights Out" Command="{Binding LightsOutCommand}" />
             <MenuItem Header="Lights On" Command="{Binding LightsOnCommand}" />
             <Separator />
-            <MenuItem Header="Exit" 
+            <MenuItem Header="Exit"
                       Command="{Binding ExitCommand}" 
                       CommandParameter="{Binding Opacity}"/>
         </ContextMenu>
@@ -52,7 +52,9 @@
                                   Content="On/Off"
                                   Height="30"
                                   Width="90"
-                                  Margin="0 0 0 0">
+                                  Margin="0 0 0 0"
+                                  IsChecked="{Binding IsChecked}"
+                                  Name="tgbtn">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Unchecked">
                                 <i:InvokeCommandAction Command="{Binding LightsOnCommand}" />
