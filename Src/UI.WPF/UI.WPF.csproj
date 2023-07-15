@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <AssemblyName>LightsOut</AssemblyName>
+	  <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
+	  <ApplicationIcon>Resources\moon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,12 +35,6 @@
     <Resource Include="Resources\moon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

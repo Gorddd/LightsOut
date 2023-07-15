@@ -12,7 +12,6 @@ using UI.Abstractions.ViewsAbstractions;
 using UI.WPF.Factories;
 using UI.WPF.Factories.Concrete;
 using UI.WPF.Views;
-using UI.WPF.Configs;
 using Core.Services;
 using Core.Services.Concrete;
 using Core.Abstractions;

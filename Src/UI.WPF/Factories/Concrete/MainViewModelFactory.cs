@@ -1,7 +1,6 @@
 ﻿using Core.Services;
 using Environment.Implementations;
 using UI.Abstractions.ViewsAbstractions;
-using UI.WPF.Configs;
 using ViewModel.Abstractions;
 using ViewModel.Commands;
 using ViewModel.ViewModels;
