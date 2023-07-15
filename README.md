@@ -22,3 +22,5 @@ The application creates a transparent window on top of all windows to lower the 
 - [HandyControl](https://github.com/HandyOrg/HandyControl) (UI wpf components)
 - [Hardcodet.NotifyIcon](https://github.com/hardcodet/wpf-notifyicon) (wpf taskbar icon)
 - [WpfScreenHelper](https://github.com/micdenny/WpfScreenHelper) 
+
+### [Download](https://github.com/Gorddd/LightsOut/releases/tag/v1.0) :link:
