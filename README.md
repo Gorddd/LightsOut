@@ -6,8 +6,10 @@ Only for windows
 ![Main](Screens/main.jpg)
 
 - Supports multiple screens
+
 ![UI](Screens/1.jpg)
 - Taskbar icon 
+
 ![Notifyicon](Screens/2.jpg)
 
 ## How it works
