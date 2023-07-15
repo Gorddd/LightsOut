@@ -7,9 +7,9 @@ class DisplayManager : IDisposable
 {
     private readonly ICoverFactory _coverFactory;
 
-    record CoverIsCovered(ICover Cover, bool IsCovered);
+    record CoverAndDisplay(ICover Cover, Display Display);
 
-    private List<CoverIsCovered> _covers = null!;
+    private List<CoverAndDisplay> _coverDisplays = null!;
 
     public DisplayManager(ICoverFactory coverFactory, IEnumerable<Display> displays)
     {
@@ -19,38 +19,43 @@ class DisplayManager : IDisposable
 
     private void InitializeCovers(IEnumerable<Display> displays)
     {
-        _covers = new List<CoverIsCovered>();
+        _coverDisplays = new List<CoverAndDisplay>();
         foreach (var display in displays)
-            _covers.Add(new CoverIsCovered(_coverFactory.Create(display), display.IsCovered!.Value));
-    }
-
-    public void UpdateDisplays(IEnumerable<Display> displays)
-    {
-        InitializeCovers(displays);
+            _coverDisplays.Add(new CoverAndDisplay(_coverFactory.Create(display), display));
     }
 
     public void CoverDisplays()
     {
-        foreach (var cover in _covers)
-            if (cover.IsCovered)
-                cover.Cover.Appear();
+        foreach (var coverDisplay in _coverDisplays)
+            if (coverDisplay.Display.IsCovered!.Value)
+                coverDisplay.Cover.Appear();
+    }
+
+    public void UpdateDisplay(Display display)
+    {
+        var displayToUpdate = _coverDisplays.First(cd => cd.Display.Equals(display));
+
+        if (displayToUpdate.Display.IsCovered!.Value)
+            displayToUpdate.Cover.Appear();
+        else
+            displayToUpdate.Cover.Disappear();
     }
 
     public void UncoverDisplays()
     {
-        foreach (var cover in _covers)
-            cover.Cover.Disappear();
+        foreach (var coverDisplay in _coverDisplays)
+            coverDisplay.Cover.Disappear();
     }
 
     public void ChangeOpacity(double opacity)
     {
-        foreach (var cover in _covers)
-            cover.Cover.ChangeOpacity(opacity);
+        foreach (var coverDisplay in _coverDisplays)
+            coverDisplay.Cover.ChangeOpacity(opacity);
     }
 
     public void Dispose()
     {
-        foreach (var cover in _covers)
-            cover.Cover.Dispose();
+        foreach (var coverDisplay in _coverDisplays)
+            coverDisplay.Cover.Dispose();
     }
 }

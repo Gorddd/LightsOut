@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\monitor.png" />
     <None Remove="Resources\moon.ico" />
   </ItemGroup>
 
@@ -28,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\monitor.png" />
     <Resource Include="Resources\moon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

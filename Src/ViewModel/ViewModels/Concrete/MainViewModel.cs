@@ -25,6 +25,7 @@ public class MainViewModel : ViewModelBase, IMainViewModel
 
         LightsOutCommand = new LightsOutCommandWrapper(() => IsChecked = true, lightsConsole.LightsOutCommand);
         LightsOnCommand = new LightsOnCommandWrapper(() => IsChecked = false, lightsConsole.LightsOnCommand);
+        UpdateDisplayCommand = new UpdateDisplayCommand(() => IsChecked, displayService);
 
         _displays = new ObservableCollection<Display>(displayService.Displays);
     }
@@ -38,6 +39,8 @@ public class MainViewModel : ViewModelBase, IMainViewModel
     public ICommand LightsOutCommand { get; }
 
     public ICommand LightsOnCommand { get; }
+
+    public ICommand UpdateDisplayCommand { get; }
 
     private bool _isChecked;
     public bool IsChecked

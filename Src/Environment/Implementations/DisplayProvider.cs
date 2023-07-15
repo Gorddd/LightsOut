@@ -10,7 +10,7 @@ public class DisplayProvider : IDisplayProvider
     {
         return Screen.AllScreens.Select((screen, index) => new Display
         {
-            Name = $"Display {index}",
+            Name = $"Display {index + 1}",
             Left = screen.Bounds.Left,
             Top = screen.Bounds.Top,
             Height = screen.Bounds.Height,

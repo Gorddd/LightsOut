@@ -6,11 +6,11 @@ public interface IDisplayService : IDisposable
 {
     public IEnumerable<Display> Displays { get; }
 
-    public void Update();
-
     public void Cover();
 
     public void Uncover();
+
+    public void UpdateDisplay(Display display);
 
     public void ChangeOpacity(double opacity);
 }

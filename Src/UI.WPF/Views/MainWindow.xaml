@@ -38,7 +38,7 @@
                         ContextMenu="{StaticResource SysTrayMenu}"/>
 
         <StackPanel>
-            <Border Margin="20" 
+            <Border Margin="20 20 20 0" 
                     Background="AliceBlue"
                     Style="{StaticResource BorderCircular}">
                 <Grid Margin="5">
@@ -53,8 +53,7 @@
                                   Height="30"
                                   Width="90"
                                   Margin="0 0 0 0"
-                                  IsChecked="{Binding IsChecked}"
-                                  Name="tgbtn">
+                                  IsChecked="{Binding IsChecked}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Unchecked">
                                 <i:InvokeCommandAction Command="{Binding LightsOnCommand}" />
@@ -80,6 +79,50 @@
                         </i:Interaction.Triggers>
                     </Slider>
                 </Grid>
+            </Border>
+            <Border Margin="20" 
+                    Background="AliceBlue"
+                    Style="{StaticResource BorderCircular}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding Displays}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="20 5 20 5">
+                                    <StackPanel>
+                                        <Image Source="/Resources/monitor.png" Width="120" Height="100"></Image>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="{Binding Name}"
+                                                   Grid.Column="0"></Label>
+                                            <ToggleButton Style="{StaticResource ToggleButtonDefault}"
+                                                          Grid.Column="1"
+                                                          IsChecked="{Binding IsCovered}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Unchecked">
+                                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.UpdateDisplayCommand}"
+                                                                               CommandParameter="{Binding}"/>
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="Checked">
+                                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.UpdateDisplayCommand}"
+                                                                               CommandParameter="{Binding}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ToggleButton>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
             </Border>
         </StackPanel>
     </Grid>

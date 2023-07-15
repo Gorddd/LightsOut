@@ -30,7 +30,7 @@ public class DisplayService : IDisplayService
     {
         void InitializeActualDisplays(IEnumerable<Display> actualDisplays)
         {
-            actualDisplays.Single(d => d.Name == "Display 0").IsCovered = true;
+            actualDisplays.Single(d => d.Name == "Display 1").IsCovered = true;
 
             foreach (var display in actualDisplays)
                 if (display.IsCovered == null)
@@ -68,10 +68,9 @@ public class DisplayService : IDisplayService
         }
     }
 
-    public void Update()
+    public void UpdateDisplay(Display display)
     {
-        _workingDisplays = GetOrUpdateDisplays();
-        _displayManager.UpdateDisplays(_workingDisplays);
+        _displayManager.UpdateDisplay(display);
     }
 
     public void Cover()
