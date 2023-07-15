@@ -52,7 +52,7 @@ public class DisplayService : IDisplayService
                     (s, a) => new { Storage = s, Actual = a })
                 .Any(sa => !sa.Storage.Equals(sa.Actual));
 
-            if (hasAnyDiff)
+            if (hasAnyDiff || actualDisplays.Count() != storageDisplays.Count())
             {
                 InitializeActualDisplays(actualDisplays);
 
